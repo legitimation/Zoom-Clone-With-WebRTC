@@ -4,12 +4,15 @@ const myPeer = new Peer(undefined, {
   host: '/',
   port: '3001'
 })
+
 const myVideo = document.createElement('video')
 myVideo.muted = true
+
 const peers = {}
 navigator.mediaDevices.getUserMedia({
-  video: true,
-  audio: true
+  video: true
+  // ,
+  // audio: true
 }).then(stream => {
   addVideoStream(myVideo, stream)
 
@@ -22,7 +25,11 @@ navigator.mediaDevices.getUserMedia({
   })
 
   socket.on('user-connected', userId => {
-    connectToNewUser(userId, stream)
+    // user is joining
+    setTimeout(() => {
+      // user joined
+      connectToNewUser(userId, stream)
+    }, 1000)
   })
 })
 
